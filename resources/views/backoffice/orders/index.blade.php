@@ -21,7 +21,7 @@ $('#dataTable').DataTable({
     "ordering" : true,
     "scrollCollapse" : true,
     "searching" : true,
-    "columnDefs" : [{"targets":[3], "type":"date-eu"}],
+    "columnDefs" : [{"targets":[4], "type":"date-eu"}],
     "bInfo": true
 });
 </script>
