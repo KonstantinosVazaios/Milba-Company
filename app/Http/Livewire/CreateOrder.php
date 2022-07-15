@@ -65,7 +65,7 @@ class CreateOrder extends Component
             'payment_method' => $this->selectedPaymentMethod,
         ]);
 
-        // TODO: FIRE AN EVENT THAT SHOULDBROADCAST AND IS GOING TO BE COSNUMED BY CLIENT PRINTING APP
+        $order->load('sport:id,title');
         OrderCreated::dispatch($order);
 
         $this->reset(['selectedWatersport', 'selectedPrice', 'selectedPaymentMethod']);

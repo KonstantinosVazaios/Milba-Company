@@ -53,6 +53,13 @@ class Orders extends Component
         });
 
         $order->delete();
+
+        $this->alert('success', 'Επιτυχία!', [
+            'position' => 'center',
+            'timer' => 3000,
+            'toast' => false,
+            'text' => "Η παραγγελία διαγράφθηκε",
+        ]);
     }
 
     public function print($id)
@@ -76,6 +83,7 @@ class Orders extends Component
     public function confirmPrint()
     {
         $order = Order::find($this->selectedId)->first();
+        $order->load('sport:id,title');
         OrderCreated::dispatch($order);
 
         $this->alert('success', 'Επιτυχία!', [
