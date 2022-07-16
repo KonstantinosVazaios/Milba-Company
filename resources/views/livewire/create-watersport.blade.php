@@ -47,11 +47,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Χρόνος</label>
-                        <input wire:model="duration" name="duration" type="text" class="form-control">
+                        <input wire:model="duration" name="duration" type="text" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Τιμή</label>
-                        <input wire:model="price" name="price" type="number" class="form-control">
+                        <input wire:model="price" name="price" type="number" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
