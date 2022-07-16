@@ -16,7 +16,7 @@
                 
                 <h4 class="mt-5">
                     Τίμες ανά χρόνο
-                    <button type="button" class="btn btn-info ml-3" data-toggle="modal" data-target="#newPriceModal">Προσθήκη Νέας Τιμής</button>
+                    <button type="button" class="btn btn-info mt-2 ml-0 mt-sm-0 ml-sm-3" data-toggle="modal" data-target="#newPriceModal">Προσθήκη Νέας Τιμής</button>
                 </h4>
                 <div class="list-group py-3">
                     @foreach($prices as $key => $price)
