@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FALASSARNA BACKOFFICE - BACKOFFICE</title>
+    <title>FALASSARNA WATERSPORTS</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin-assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
 
             <a class="sidebar-brand d-flex" href="/admin">
                 <div class="sidebar-brand-text">
-                    BACKOFFICE 
+                    FALASSARNA W.S 
                 </div>
             </a>
 
@@ -90,9 +90,7 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <h4 style="font-weight: 700" class="pt-2">
-                        FALASSARNA BACKOFFICE
-                    </h4>
+                    <a href="/admin/orders/create" class="btn btn-primary">NEW ORDER</a>
                     <ul class="navbar-nav ml-auto">
                         <!-- <li class="nav-item dropdown no-arrow mx-1 pt-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
