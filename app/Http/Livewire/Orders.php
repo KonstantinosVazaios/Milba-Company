@@ -17,6 +17,7 @@ class Orders extends Component
     ];
 
     public $orders;
+    public $selectedId;
 
     public function render()
     {

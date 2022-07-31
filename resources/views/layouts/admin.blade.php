@@ -30,7 +30,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex" href="/admin">
                 <div class="sidebar-brand-text">
@@ -59,14 +59,20 @@
                 <a style="padding-top: 0" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#orders"
                     aria-expanded="true" aria-controls="orders">
                     <i class="fas fa-file-invoice"></i>
-                    <span>ORDERS</span>
+                    <span>ΠΑΡΑΓΓΕΛΙΕΣ</span>
                 </a>
                 <div id="orders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/orders/create">Create Order</a>
-                        <a class="collapse-item" href="/admin/orders">All Orders</a>
+                        <a class="collapse-item" href="/admin/orders/create">ΔΗΜΙΟΥΡΓΙΑ</a>
+                        <a class="collapse-item" href="/admin/orders">ΟΛΕΣ ΟΙ ΠΑΡΑΓΓΕΛΙΕΣ</a>
                     </div>
                 </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item py-1">
+                <a style="padding-top: 0" class="nav-link" href="/admin/end-of-day">
+                    <i class="fas fa-coins"></i>
+                    <span>ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ</span></a>
             </li>
             <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item py-1">
@@ -90,7 +96,8 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a href="/admin/orders/create" class="btn btn-primary">NEW ORDER</a>
+                    <a href="/admin/orders/create" class="btn btn-primary">NEA ΠΑΡΑΓΓΕΛΙΑ</a>
+                    <button class="btn btn-warning font-weight-bold ml-2" data-toggle="modal" data-target="#endOfDay">ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ</button>
                     <ul class="navbar-nav ml-auto">
                         <!-- <li class="nav-item dropdown no-arrow mx-1 pt-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -202,6 +209,25 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <div class="modal fade" id="endOfDay" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ΠΡΟΣΟΧΗ! ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Προσοχή, είστε σίγουρος ότι θέλετε να πραγματοποιήσετε ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ακύρωση</button>
+                    <button type="button" class="btn btn-danger">Κλείσιμο Ημέρας</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

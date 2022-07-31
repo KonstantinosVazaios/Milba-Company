@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WatersportController;
+use App\Http\Controllers\EndOfDayController;
 use App\Http\Controllers\OrderController;
 
 /*
@@ -22,6 +23,8 @@ Route::get('/', function () {
 Route::middleware(['auth'])->prefix('/admin')->group(function () {
 
     Route::view('/', 'backoffice.statistics');
+
+    Route::get('/end-of-day', [EndOfDayController::class, 'index']);
 
     Route::get('/watersports/create', [WatersportController::class, 'create']);
     Route::post('/watersports/create', [WatersportController::class, 'store']);
