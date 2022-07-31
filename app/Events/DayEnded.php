@@ -24,7 +24,7 @@ class DayEnded implements ShouldBroadcast
     
     public function broadcastOn()
     {
-        return new PrivateChannel('order-channel');
+        return new Channel('order-channel');
     }
 
     public function broadcastAs()
