@@ -1,28 +1,73 @@
-<div class="card border shadow-lg">
-    <div class="card-body">
-        <form wire:submit.prevent="submit">
-            <select name="selectedWatersport" wire:model="selectedWatersport" class="form-control form-control-lg mb-4">
-                <option selected>Επιλέξτε Watersport</option>
-                @foreach($watersports as $watersport)
-                <option value="{{$watersport->id}}">{{$watersport->title}}</option>
-                @endforeach
-            </select>
-            @if (!is_null($selectedWatersport))
-            <select name="selectedPrice" wire:model="selectedPrice" class="form-control form-control-lg mb-4 mt-4">
-                <option selected>Επιλέξτε Τιμή/Χρόνο</option>
-                @foreach($prices as $price)
-                <option value="{{$price->id}}">{{$price->duration}} / {{$price->price}}€</option>
-                @endforeach
-            </select>
-            @endif
-            @if (!is_null($selectedPrice))
-            <select name="selectedPaymentMethod" wire:model="selectedPaymentMethod" name="payment_method" class="form-control form-control-lg mb-4 mt-4">
-                <option selected>ΤΡΟΠΟΣ ΠΛΗΡΩΜΗΣ</option>
-                <option value="CASH">ΜΕΤΡΗΤΑ</option>
-                <option value="CARD">ΚΑΡΤΑ</option>
-            </select>
-            @endif
-            <button type="submit" class="btn btn-success mt-3">Δημιουργία Order</button>
-        </form>
+<div>
+    <hr/>
+    <h4>ACTIVITIES</h4>
+    <hr/>
+    <div class="row row-cols-1 row-cols-md-3 mt-4">
+        @foreach($watersports as $sport)
+        <div class="col mb-4">
+            <div wire:click="selectSport( {{$sport->id}} )" style="cursor: pointer" class="card shadow {{$sport->id == $selectedWatersport->id ? 'border-primary' : ''}}">
+            <div class="card-body">
+                <h2 class="card-title {{$sport->id == $selectedWatersport->id ? 'text-primary' : ''}}">{{$sport->title}}</h2>
+                <p class="card-text {{$sport->id == $selectedWatersport->id ? 'text-primary' : ''}}">{{$sport->prices->count()}} Πακέτα</p>
+            </div>
+            </div>
+        </div>
+        @endforeach
     </div>
+    <hr/>
+    <h4>ΠΑΚΕΤΑ</h4>
+    <hr/>
+    <div class="row row-cols-1 row-cols-md-3 mt-5">
+        @foreach($prices as $price)
+        <div class="col mb-4">
+            <div wire:click="selectPrice( {{$price->id}} )" style="cursor: pointer" class="card shadow {{$price->id == $selectedPrice->id ? 'border-primary' : ''}}">
+            <div class="card-body">
+                <h2 class="card-title pb-1 {{$price->id == $selectedPrice->id ? 'text-primary' : ''}}">{{$price->price}}€</h2>
+                <h5 class="card-text {{$price->id == $selectedPrice->id ? 'text-primary' : ''}}">{{$price->duration}}</h5>
+            </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+    <hr/>
+    <h4>ΤΡΟΠΟΣ ΠΛΗΡΩΜΗΣ</h4>
+    <hr/>
+    <div class="row row-cols-1 row-cols-md-3 mt-5">
+        <div class="col mb-4">
+            <div wire:click="selectPaymentMethod( 'CASH' )" style="cursor: pointer" class="card shadow {{$selectedPaymentMethod == 'CASH' ? 'border-primary' : ''}}">
+            <div class="card-body">
+                <h2 class="card-text {{$selectedPaymentMethod == 'CASH' ? 'text-primary' : ''}}">ΜΕΤΡΗΤΑ</h2>
+            </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div wire:click="selectPaymentMethod( 'CARD' )" style="cursor: pointer" class="card shadow {{$selectedPaymentMethod == 'CARD' ? 'border-primary' : ''}}">
+            <div class="card-body">
+                <h2 class="card-text {{$selectedPaymentMethod == 'CARD' ? 'text-primary' : ''}}">ΚΑΡΤΑ</h2>
+            </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <hr/>
+    <div class="my-5">
+        @if ($selectedWatersport->billed_individually)
+        <div class="input-group input-group-lg mb-5">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">{{$selectedWatersport->billed_individually}}</span>
+            </div>
+            <input wire:model="pcs" type="text" class="form-control">
+        </div>
+        @endif
+        <div class="input-group input-group-lg">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Τιμή</span>
+            </div>
+            <input wire:model="finalPrice" type="number" class="form-control">
+            <div class="input-group-append">
+                <span class="input-group-text">€</span>
+            </div>
+        </div>
+    </div>
+    <button wire:click="submit" type="submit" class="btn btn-success mt-3 w-100">Δημιουργία Παραγγελίας</button>
 </div>

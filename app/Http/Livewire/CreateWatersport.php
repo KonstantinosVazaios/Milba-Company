@@ -9,9 +9,11 @@ use App\Models\Sport;
 class CreateWatersport extends Component
 {
     public $title = NULL;
+    public $billed_individually = NULL;
 
     protected $rules = [
         'title' => ['required', 'string', 'max:255'],
+        'billed_individually' => ['nullable', 'string', 'max:255'],
     ];
 
     public $duration = NULL;
@@ -62,7 +64,10 @@ class CreateWatersport extends Component
     {
         $validated = $this->validate();
 
-        $watersport = Sport::create(['title' => $validated['title']]);
+        $watersport = Sport::create([
+            'title' => $validated['title'],
+            'billed_individually' => $validated['billed_individually']
+        ]);
 
         $this->prices->map(function($price) use($watersport) {
             $watersport->prices()->create([

@@ -13,23 +13,34 @@
                     </div>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Αν Χρεώνεται Ατομικά (π.χ ανά άτομο, ανά jet ski) πληκτρολογήστε τον τίτλο της μονάδας μέτρησης (π.χ Άτομα ή Jet Skis)</label>
+                    <input wire:model="billed_individually" name="billed_individually" type="text" class="form-control" value="{{ old('billed_individually') }}">
+                    @error('billed_individually') 
+                    <div class="alert alert-danger mt-2" role="alert">
+                    {{$message}}
+                    </div>
+                    @enderror
+                </div>
                 
                 <h4 class="mt-5">
-                    Τίμες ανά χρόνο
-                    <button type="button" class="btn btn-info mt-2 ml-0 mt-sm-0 ml-sm-3" data-toggle="modal" data-target="#newPriceModal">Προσθήκη Νέας Τιμής</button>
+                    ΠΑΚΕΤΑ
                 </h4>
+                <div class="dropdown-divider"></div>
                 <div class="list-group py-3">
-                    @foreach($prices as $key => $price)
+                    @forelse($prices as $key => $price)
                     <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <span>{{$price['duration']}} / {{$price['price']}}€</span>
                         <button wire:click="removePrice( {{$key}} )" type="button" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
                     </li>
-                    @endforeach
+                    @empty
+                    <h4>Δεν έχετε προσθέσει κάποιο πακέτο</h4>
+                    @endforelse
                 </div>
-
-                
+                <button type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#newPriceModal">Προσθήκη Νέου Πακέτου</button>
                 <button type="submit" class="btn btn-success mt-3">Δημιουργία Watersport</button>
             </form>
         </div>
@@ -39,14 +50,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Προσθήκη Νέας Τιμής</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Προσθήκη Νέου Πακέτου</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Χρόνος</label>
+                        <label for="exampleInputEmail1">Τίτλος Πακέτου</label>
                         <input wire:model="duration" name="duration" type="text" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">

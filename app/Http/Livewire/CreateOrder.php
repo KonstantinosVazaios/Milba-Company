@@ -19,18 +19,24 @@ class CreateOrder extends Component
     public $selectedWatersport = NULL;
     public $selectedPrice = NULL;
     public $selectedPaymentMethod = NULL;
+    public $pcs = NULL;
+    public $finalPrice = NULL;
 
-
-    protected $rules = [
-        'selectedWatersport' => ['required', 'numeric'],
-        'selectedPrice' => ['required', 'numeric'],
-        'selectedPaymentMethod' => ['required']
-    ];
 
     public function mount()
     {
-        $this->watersports = Sport::all();
+        $this->watersports = Sport::with('prices')->get();
         $this->prices = collect();
+        $this->selectedPaymentMethod = "CASH";
+        $this->pcs = 1;
+
+        if ($this->watersports->count() == 0) return;
+        $this->selectedWatersport = $this->watersports->first();
+
+        if ($this->selectedWatersport->prices->count() == 0) return;
+        $this->prices = $this->selectedWatersport->prices;
+        $this->selectedPrice = $this->selectedWatersport->prices->first();
+        $this->finalPrice = $this->selectedPrice->price * $this->pcs;
     }
 
     public function render()
@@ -38,37 +44,63 @@ class CreateOrder extends Component
         return view('livewire.create-order');
     }
 
-    public function updatedSelectedWatersport($watersport)
+
+    public function selectSport($sportId)
     {
-        if (!is_null($watersport)) {
-            $this->prices = Price::where('sport_id', $watersport)->get();
+        if (!is_null($sportId)) {
+            $this->selectedWatersport = $this->watersports->where('id', $sportId)->first();
+            
+            if (!$this->selectedWatersport) return;
+
+            $this->prices = $this->selectedWatersport->prices;
+            $this->selectedPrice = $this->selectedWatersport->prices->first();
+            $this->pcs = 1;
+            $this->finalPrice = $this->selectedPrice->price * $this->pcs;
         }
+    }
+
+    public function selectPrice($priceId)
+    {
+        if (!is_null($priceId)) {
+            $this->selectedPrice =$this->selectedWatersport->prices->where('id', $priceId)->first();
+            $this->finalPrice = $this->selectedPrice->price * $this->pcs;
+        }
+    }
+
+    public function selectPaymentMethod($paymentMethod)
+    {
+        if (!is_null($paymentMethod) && ($paymentMethod == 'CASH' || $paymentMethod == 'CARD')) {
+            $this->selectedPaymentMethod = $paymentMethod;
+        }
+    }
+
+    public function updatedPcs($pcs)
+    {
+       if ($pcs) $this->finalPrice = $this->selectedPrice->price * (int)$pcs;
     }
 
     public function submit()
     {
-        $validated = $this->validate();
-        
-        $sportExists = Sport::find($this->selectedWatersport);
-        if (!$sportExists) return;
+        // $sportExists = Sport::find($this->selectedWatersport);
+        // if (!$sportExists) return;
 
-        $priceExists = $sportExists->prices()->find($this->selectedPrice);
-        if (!$priceExists) return;
+        // $priceExists = $sportExists->prices()->find($this->selectedPrice);
+        // if (!$priceExists) return;
 
-        $isPaymentMethodValid = $this->selectedPaymentMethod == 'CARD' || $this->selectedPaymentMethod == 'CASH';
-        if (!$isPaymentMethodValid) return;
+        // $isPaymentMethodValid = $this->selectedPaymentMethod == 'CARD' || $this->selectedPaymentMethod == 'CASH';
+        // if (!$isPaymentMethodValid) return;
 
         $order = Order::create([
-            'sport_id' => $this->selectedWatersport,
-            'duration' => $priceExists->duration,
-            'price' => $priceExists->price,
+            'sport_id' => $this->selectedWatersport->id,
+            'duration' => $this->selectedPrice->duration,
+            'price' => $this->finalPrice,
             'payment_method' => $this->selectedPaymentMethod,
         ]);
 
         $order->load('sport:id,title');
         OrderCreated::dispatch($order);
-
-        $this->reset(['selectedWatersport', 'selectedPrice', 'selectedPaymentMethod']);
+ 
+        // $this->reset(['selectedWatersport', 'selectedPrice', 'selectedPaymentMethod']);
 
         $this->alert('success', 'Επιτυχία!', [
             'position' => 'center',

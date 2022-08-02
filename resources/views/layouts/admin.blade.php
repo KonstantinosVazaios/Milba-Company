@@ -97,7 +97,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <a href="/admin/orders/create" class="btn btn-primary">NEA ΠΑΡΑΓΓΕΛΙΑ</a>
-                    <button class="btn btn-warning font-weight-bold ml-2" data-toggle="modal" data-target="#endOfDay">ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ</button>
+                    <livewire:endofday-toggle /> 
                     <ul class="navbar-nav ml-auto">
                         <!-- <li class="nav-item dropdown no-arrow mx-1 pt-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -209,25 +209,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <div class="modal fade" id="endOfDay" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ΠΡΟΣΟΧΗ! ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ...</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Προσοχή, είστε σίγουρος ότι θέλετε να πραγματοποιήσετε ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ακύρωση</button>
-                    <button type="button" class="btn btn-danger">Κλείσιμο Ημέρας</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -266,6 +247,14 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('admin-assets/js/sb-admin-2.min.js') }}"></script>
+    <script>
+        window.addEventListener('day_started', () => {
+            $('#startOfDay').modal('hide')
+        })
+        window.addEventListener('day_ended', () => {
+            $('#endOfDay').modal('hide')
+        })
+    </script>
     @yield('scripts')
 </body>
 

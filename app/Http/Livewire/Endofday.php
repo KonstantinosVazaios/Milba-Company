@@ -15,11 +15,7 @@ class Endofday extends Component
     public $terminations;
 
     public $selectedId;
-    public $total;
-    public $totalCash;
-    public $totalCredit;
-    public $sports;
-
+    public $data = [];
 
     protected $listeners = [
         'confirmDelete'
@@ -27,7 +23,7 @@ class Endofday extends Component
 
     public function mount()
     {
-        $this->terminations = EndofdayModel::orderBy('created_at', 'desc')->get();
+        $this->terminations = EndofdayModel::orderBy('created_at', 'desc')->whereNotNull('datetime_to')->get();
     }
 
     public function render()
@@ -41,7 +37,9 @@ class Endofday extends Component
 
         if (!$termination) return;
 
-        $this->getData($termination);
+        $this->data = $this->getData($termination);
+
+        $this->dispatchBrowserEvent('showStatistics');
     }
 
     public function print($id)
@@ -50,19 +48,7 @@ class Endofday extends Component
 
         if (!$termination) return;
         
-        $this->getData($termination);
-
-        $data = array(
-            "ΑΠΟ" => (new \Carbon\Carbon($termination->datetime_from))->format('d/m/Y H:i'),
-            "ΜΕΧΡΙ" => (new \Carbon\Carbon($termination->datetime_to))->format('d/m/Y H:i'),
-            "ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ" => $this->total,
-            "ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ ΜΕΤΡΗΤΑ" => $this->totalCash,
-            "ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ ΚΑΡΤΑ" => $this->totalCredit
-        );
-
-        foreach ($this->sports as $sportTitle => $income) {
-            $data[$sportTitle] = $income;
-        }
+        $data = $this->getData($termination);
 
         DayEnded::dispatch($data);
 
@@ -103,7 +89,7 @@ class Endofday extends Component
             return $termination->id != $id;
         });
         
-        // $termination->delete();
+        $termination->delete();
 
         $this->alert('success', 'Επιτυχία!', [
             'position' => 'center',
@@ -115,9 +101,23 @@ class Endofday extends Component
 
     public function getData(EndofdayModel $termination)
     {
-        $this->total = Order::whereBetween('created_at', [$termination->datetime_from, $termination->datetime_to])->sum('price');
-        $this->totalCash = Order::where('payment_method', 'CASH')->whereBetween('created_at', [$termination->datetime_from, $termination->datetime_to])->sum('price');
-        $this->totalCredit = Order::where('payment_method', 'CARD')->whereBetween('created_at', [$termination->datetime_from, $termination->datetime_to])->sum('price');
-        $this->sports = Order::whereBetween('created_at', [$termination->datetime_from, $termination->datetime_to])->with('sport')->get()->groupBy('sport.title')->map->sum('price');
+        $total = Order::where('created_at', '>=', $termination->datetime_from)->where('created_at', '<=', $termination->datetime_to)->sum('price');
+        $totalCash = Order::where('payment_method', 'CASH')->where('created_at', '>=', $termination->datetime_from)->where('created_at', '<=', $termination->datetime_to)->sum('price');
+        $totalCredit = Order::where('payment_method', 'CARD')->where('created_at', '>=', $termination->datetime_from)->where('created_at', '<=', $termination->datetime_to)->sum('price');
+        $sports = Order::where('created_at', '>=', $termination->datetime_from)->where('created_at', '<=', $termination->datetime_to)->with('sport')->get()->groupBy('sport.title')->map->sum('price');
+
+        $data = array(
+            "ΑΠΟ" => (new \Carbon\Carbon($termination->datetime_from))->format('d/m/Y H:i'),
+            "ΜΕΧΡΙ" => (new \Carbon\Carbon($termination->datetime_to))->format('d/m/Y H:i'),
+            "ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ" => $total . '€',
+            "ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ ΜΕΤΡΗΤΑ" => $totalCash . '€',
+            "ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ ΚΑΡΤΑ" => $totalCredit . '€'
+        );
+
+        foreach ($sports as $sportTitle => $income) {
+            $data[$sportTitle] = $income . '€';
+        }
+
+        return $data;
     }
 }

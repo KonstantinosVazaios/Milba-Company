@@ -18,9 +18,11 @@ class UpdateWatersport extends Component
 
     public $watersport;
     public $title;
+    public $billed_individually = NULL;
 
     protected $rules = [
         'title' => ['required', 'string', 'max:255'],
+        'billed_individually' => ['nullable', 'string', 'max:255'],
     ];
 
     public $duration = NULL;
@@ -30,6 +32,7 @@ class UpdateWatersport extends Component
     public function mount()
     {
         $this->title = $this->watersport->title;
+        $this->billed_individually = $this->watersport->billed_individually;
         $this->prices = collect($this->watersport->prices->toArray());
     }
 
@@ -72,7 +75,10 @@ class UpdateWatersport extends Component
     {
         $validated = $this->validate();
 
-        $this->watersport->update(['title' => $validated['title']]);
+        $this->watersport->update([
+            'title' => $validated['title'],
+            'billed_individually' => $validated['billed_individually']
+        ]);
         $watersport = $this->watersport;
 
         DB::table('prices')->where('sport_id', $watersport->id)->delete();

@@ -22,7 +22,7 @@
                         <td>{{$order->duration}}</td>
                         <td>{{$order->price}}€</td>
                         <td>{{$order->payment_method == 'CASH' ? 'ΜΕΤΡΗΤΑ' : 'ΚΑΡΤΑ'}}</td>
-                        <td>{{(new \Carbon\Carbon($order->created_at))->format('d/m/Y')}}</td>
+                        <td>{{(new \Carbon\Carbon($order->created_at))->format('d/m/Y H:i')}}</td>
                         <td style="text-align: center">
                             <button wire:click="delete( {{$order->id}} )" class="btn btn-danger" >
                                 <i class="fas fa-trash"></i>

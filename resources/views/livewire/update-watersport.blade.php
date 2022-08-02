@@ -13,11 +13,21 @@
                     </div>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Αν Χρεώνεται Ατομικά (π.χ ανά άτομο, ανά jet ski) πληκτρολογήστε τον τίτλο της μονάδας μέτρησης (π.χ Άτομα ή Jet Skis)</label>
+                    <input wire:model="billed_individually" name="billed_individually" type="text" class="form-control" value="{{ old('billed_individually') }}">
+                    @error('billed_individually') 
+                    <div class="alert alert-danger mt-2" role="alert">
+                    {{$message}}
+                    </div>
+                    @enderror
+                </div>
                 
                 <h4 class="mt-5">
-                    Τίμες ανά χρόνο
-                    <button type="button" class="btn btn-info mt-2 ml-0 mt-sm-0 ml-sm-3" data-toggle="modal" data-target="#newPriceModal">Προσθήκη Νέας Τιμής</button>
+                    ΠΑΚΕΤΑ
                 </h4>
+                <div class="dropdown-divider"></div>
                 <div class="list-group py-3">
                     @foreach($prices as $key => $price)
                     <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -29,8 +39,9 @@
                     @endforeach
                 </div>                
             </form>
+            <button type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#newPriceModal">Προσθήκη Νέου Πακέτου</button>
             <button form="update" type="submit" class="btn btn-success mt-3">Αποθήκευση</button>
-            <button wire:click="delete" type="submit" class="btn btn-danger ml-2 mt-3 ml-sm-3">Διαγραφη</button>
+            <button wire:click="delete" type="submit" class="btn btn-danger mt-3">Διαγραφη</button>
         </div>
     </div>
 

@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-Δημιουργία Order
+
 @endsection
 
 @section('content')

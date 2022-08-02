@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEndofdaysTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateEndofdaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('endofdays', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('datetime_from');
-            $table->dateTime('datetime_to')->nullable();
+            $table->boolean('day_has_started');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateEndofdaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('endofdays');
+        Schema::dropIfExists('settings');
     }
 }
