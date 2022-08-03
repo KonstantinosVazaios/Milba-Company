@@ -9,8 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'DESC')->with('sport:id,title')->get();
-        return view('backoffice.orders.index', compact('orders'));
+        return view('backoffice.orders.index');
     }
 
     public function create()

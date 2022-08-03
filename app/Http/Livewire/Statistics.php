@@ -33,10 +33,15 @@ class Statistics extends Component
     {
         if (!is_null($date)) {
             $carbonDate = new Carbon($date);
+            // $test = Order::whereDate('created_at', $carbonDate)
+            //         ->groupBy('sport_id')
+            //         ->selectRaw('sum(price) as sum, sport_id')
+            //         ->pluck('sum','sport_id');
+            // dd($test);
             $this->watersports = collect();
-            $this->total_income = Order::whereDate('created_at', '=', $carbonDate)->sum('price');
-            $this->income_cash = Order::whereDate('created_at', '=', $carbonDate)->where('payment_method', 'CASH')->sum('price');
-            $this->income_credit = Order::whereDate('created_at', '=', $carbonDate)->where('payment_method', 'CARD')->sum('price');
+            $this->total_income = Order::whereDate('created_at', $carbonDate)->sum('price');
+            $this->income_cash = Order::whereDate('created_at', $carbonDate)->where('payment_method', 'CASH')->sum('price');
+            $this->income_credit = Order::whereDate('created_at', $carbonDate)->where('payment_method', 'CARD')->sum('price');
         }
     }
 }

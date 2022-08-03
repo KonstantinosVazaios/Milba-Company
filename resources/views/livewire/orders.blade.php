@@ -7,6 +7,7 @@
             <table style="color: #000; font-size: 17px" class="table table-bordered pb-3" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>WATERSPORT</th>
                         <th>Διάρκεια</th>
                         <th>ΚΟΣΤΟΣ</th>
@@ -17,7 +18,8 @@
                 </thead>
                 <tbody>
                     @foreach($orders as $order)    
-                    <tr>                
+                    <tr> 
+                        <td>{{$order->id}}</td>               
                         <td>{{$order->sport->title}}</td>
                         <td>{{$order->duration}}</td>
                         <td>{{$order->price}}€</td>
@@ -35,6 +37,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{$orders->links()}}
         </div>
     </div>
 </div>

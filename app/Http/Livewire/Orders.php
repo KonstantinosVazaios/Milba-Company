@@ -4,24 +4,26 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithPagination;
 use App\Events\OrderCreated;
 use App\Models\Order;
 
 class Orders extends Component
 {
-    use LivewireAlert;
+    use LivewireAlert, WithPagination;
 
     protected $listeners = [
         'confirmDelete',
         'confirmPrint'
     ];
 
-    public $orders;
     public $selectedId;
 
     public function render()
     {
-        return view('livewire.orders');
+        return view('livewire.orders', [
+            'orders' => Order::orderBy('created_at', 'DESC')->with('sport:id,title')->simplePaginate(75),
+        ]);
     }
 
     public function delete($id)
@@ -45,13 +47,9 @@ class Orders extends Component
     public function confirmDelete()
     {
         $id = $this->selectedId;
-
-        $order = Order::find($id)->first();
+        
+        $order = Order::find($id);
         if (!$order) return;
-
-        $this->orders = $this->orders->filter(function($order) use($id) {
-            return $order->id != $id;
-        });
 
         $order->delete();
 
@@ -83,7 +81,7 @@ class Orders extends Component
 
     public function confirmPrint()
     {
-        $order = Order::find($this->selectedId)->first();
+        $order = Order::find($this->selectedId);
         $order->load('sport');
 
         $data = [
