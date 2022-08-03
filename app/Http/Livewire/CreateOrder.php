@@ -102,7 +102,7 @@ class CreateOrder extends Component
 
         $data = [
             "Αύξων Αριθμός Παραγγελίας" => $order->id,
-            "Activity" => "d",
+            "Activity" => $order->sport->title,
             "Πακέτο" => $order->duration,
             "Tιμή" => $this->selectedWatersport->billed_individually ? $this->selectedPrice->price : $order->price,
         ];
