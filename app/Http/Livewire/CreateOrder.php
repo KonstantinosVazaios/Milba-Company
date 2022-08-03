@@ -96,8 +96,22 @@ class CreateOrder extends Component
             'price' => $this->finalPrice,
             'payment_method' => $this->selectedPaymentMethod,
         ]);
-
+        
+        
         $order->load('sport:id,title');
+
+        $data = [
+            "Αύξων Αριθμός Παραγγελίας" => $order->id,
+            "Activity" => $order->sport->title,
+            "Πακέτο" => $order->duration,
+            "Tιμή" => $this->selectedWatersport->billed_individually ? $this->selectedPrice->price : $order->price,
+        ];
+
+        if ($this->selectedWatersport->billed_individually) {
+            $data[$this->selectedWatersport->billed_individually] = $this->pcs;
+            $data['Τελική Τιμή'] = $order->price;
+        }
+
         OrderCreated::dispatch($order);
  
         // $this->reset(['selectedWatersport', 'selectedPrice', 'selectedPaymentMethod']);
