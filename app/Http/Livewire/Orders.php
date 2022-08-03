@@ -87,10 +87,11 @@ class Orders extends Component
         $order->load('sport');
 
         $data = [
-            "Αύξων Αριθμός Παραγγελίας" => $order->id,
+            "Order" => $order->id,
             "Activity" => $order->sport->title,
-            "Πακέτο" => $order->duration,
-            "Tιμή" => $order->price,
+            "Offer" => $order->duration,
+            "Price" => $order->price,
+            'Payment Method' => $order->payment_method
         ];
 
         // if ($order->sport->billed_individually) {

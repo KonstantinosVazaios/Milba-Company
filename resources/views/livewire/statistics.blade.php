@@ -1,19 +1,11 @@
 <div>
-    <!-- <div class="row d-flex justify-content-between mb-5">
-        <div class="col-md-6">
-            <label for="date-input"><b>ΑΠΟ</b></label>
-            <input wire:model="selectedStartDate" id="date-input" class="form-control form-control-lg" type="date" name="date" placeholder="Επιλέξτε Ημερομηνία" value="">
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex">
+                <input wire:model="selectedDate" id="date-input" class="form-control form-control-lg" type="date" name="date" placeholder="Επιλέξτε Ημερομηνία" value="" id="">
+            </div>
         </div>
-        <div class="col-md-6 mt-3 mt-md-0">
-            <label for="date-input"><b>ΜΕΧΡΙ</b></label>
-            <input wire:model="selectedEndDate" id="date-input" class="form-control form-control-lg" type="date" name="date" placeholder="Επιλέξτε Ημερομηνία" value="">
-        </div>
-        <div class="col-12">
-        <button wire:click="showStatisticsPerDate" class="btn btn-success w-100 mt-3">
-            ΠΡΟΒΟΛΗ ΣΤΑΤΙΣΤΙΚΩΝ
-        </button>
-        </div>
-    </div> -->
+    </div>
 
     <div class="row">
         <div style="height: 150px; font-size: 28px" class="col-xl-4 col-md-6 mb-5">
