@@ -88,7 +88,7 @@ class Orders extends Component
 
         $data = [
             "Αύξων Αριθμός Παραγγελίας" => $order->id,
-            "Activity" => $order->sport->title,
+            "Activity" => "d",
             "Πακέτο" => $order->duration,
             "Tιμή" => $order->price,
         ];
