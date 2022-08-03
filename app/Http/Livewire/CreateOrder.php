@@ -112,7 +112,7 @@ class CreateOrder extends Component
             $data['Τελική Τιμή'] = $order->price;
         }
 
-        OrderCreated::dispatch($order);
+        OrderCreated::dispatch($data);
  
         // $this->reset(['selectedWatersport', 'selectedPrice', 'selectedPaymentMethod']);
 

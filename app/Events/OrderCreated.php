@@ -17,9 +17,9 @@ class OrderCreated implements ShouldBroadcast
 
     public $order;
 
-    public function __construct(Order $order)
+    public function __construct($data)
     {
-        $this->order = $order;
+        $this->order = $data;
     }
 
     /**

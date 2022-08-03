@@ -84,8 +84,21 @@ class Orders extends Component
     public function confirmPrint()
     {
         $order = Order::find($this->selectedId)->first();
-        $order->load('sport:id,title');
-        OrderCreated::dispatch($order);
+        $order->load('sport');
+
+        $data = [
+            "Αύξων Αριθμός Παραγγελίας" => $order->id,
+            "Activity" => $order->sport->title,
+            "Πακέτο" => $order->duration,
+            "Tιμή" => $order->price,
+        ];
+
+        // if ($order->sport->billed_individually) {
+        //     $data[$order->sport->billed_individually] = $this->pcs;
+        //     $data['Τελική Τιμή'] = $order->price;
+        // }
+
+        OrderCreated::dispatch($data);
 
         $this->alert('success', 'Επιτυχία!', [
             'position' => 'center',
