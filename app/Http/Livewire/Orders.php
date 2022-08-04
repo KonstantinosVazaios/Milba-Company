@@ -7,6 +7,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithPagination;
 use App\Events\OrderCreated;
 use App\Models\Order;
+use Carbon\Carbon;
 
 class Orders extends Component
 {
@@ -22,7 +23,7 @@ class Orders extends Component
     public function render()
     {
         return view('livewire.orders', [
-            'orders' => Order::orderBy('created_at', 'DESC')->with('sport:id,title')->simplePaginate(75),
+            'orders' => Order::whereDate('created_at', Carbon::today())->orderBy('created_at', 'DESC')->with('sport:id,title')->simplePaginate(75),
         ]);
     }
 
