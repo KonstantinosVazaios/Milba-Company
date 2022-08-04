@@ -89,7 +89,7 @@ class CreateOrder extends Component
             'payment_method' => $this->selectedPaymentMethod,
             'notes' => $this->notes
         ]);
-           
+        
         $order->load('sport:id,title');
 
         $data = [
@@ -111,6 +111,8 @@ class CreateOrder extends Component
 
         OrderCreated::dispatch($data);
  
+        $this->reset(['notes']);
+
         $this->alert('success', 'Επιτυχία!', [
             'position' => 'center',
             'timer' => 3000,

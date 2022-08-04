@@ -89,7 +89,8 @@ class Orders extends Component
             "Activity" => $order->sport->title,
             "Offer" => $order->duration,
             "Price" => $order->price,
-            'Payment Method' => $order->payment_method
+            'Payment Method' => $order->payment_method,
+            'Notes' => $order->notes
         ];
 
         // if ($order->sport->billed_individually) {
