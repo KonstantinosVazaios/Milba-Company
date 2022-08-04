@@ -59,7 +59,7 @@
             <input wire:model="pcs" type="text" class="form-control">
         </div>
         @endif
-        <div class="input-group input-group-lg">
+        <div class="input-group input-group-lg mb-5">
             <div class="input-group-prepend">
                 <span class="input-group-text">Τιμή</span>
             </div>
@@ -67,6 +67,12 @@
             <div class="input-group-append">
                 <span class="input-group-text">€</span>
             </div>
+        </div>
+        <div class="input-group input-group-lg">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Σχόλια (π.χ διάρκεια, ώρα αναχώρησης κτλ.)</span>
+            </div>
+            <input wire:model="notes" type="text" class="form-control">
         </div>
     </div>
     <button wire:click="submit" type="submit" class="btn btn-success mt-3 w-100">Δημιουργία Παραγγελίας</button>

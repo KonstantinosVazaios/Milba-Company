@@ -13,7 +13,8 @@ class Order extends Model
         'sport_id',
         'duration',
         'price',
-        'payment_method'
+        'payment_method',
+        'notes'
     ];
 
     public function sport()

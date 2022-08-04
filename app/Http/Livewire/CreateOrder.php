@@ -21,6 +21,7 @@ class CreateOrder extends Component
     public $selectedPaymentMethod = NULL;
     public $pcs = NULL;
     public $finalPrice = NULL;
+    public $notes = NULL;
 
 
     public function mount()
@@ -81,23 +82,14 @@ class CreateOrder extends Component
 
     public function submit()
     {
-        // $sportExists = Sport::find($this->selectedWatersport);
-        // if (!$sportExists) return;
-
-        // $priceExists = $sportExists->prices()->find($this->selectedPrice);
-        // if (!$priceExists) return;
-
-        // $isPaymentMethodValid = $this->selectedPaymentMethod == 'CARD' || $this->selectedPaymentMethod == 'CASH';
-        // if (!$isPaymentMethodValid) return;
-
         $order = Order::create([
             'sport_id' => $this->selectedWatersport->id,
             'duration' => $this->selectedPrice->duration,
             'price' => $this->finalPrice,
             'payment_method' => $this->selectedPaymentMethod,
+            'notes' => $this->notes
         ]);
-        
-        
+           
         $order->load('sport:id,title');
 
         $data = [
@@ -113,10 +105,12 @@ class CreateOrder extends Component
             $data['Final Price'] = $order->price;
         }
 
+        if ($order->notes) {
+            $data['Notes'] = $order->notes;
+        }
+
         OrderCreated::dispatch($data);
  
-        // $this->reset(['selectedWatersport', 'selectedPrice', 'selectedPaymentMethod']);
-
         $this->alert('success', 'Επιτυχία!', [
             'position' => 'center',
             'timer' => 3000,
