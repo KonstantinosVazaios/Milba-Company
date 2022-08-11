@@ -95,7 +95,7 @@
                         <div class="card-header">You are logged in</div>
 
                         <div class="card-body">
-                            <a href="/admin" class="btn btn-primary btn-lg">
+                            <a href="/admin/orders/create" class="btn btn-primary btn-lg">
                                 OPEN W.S APP
                             </a>
                         </div>

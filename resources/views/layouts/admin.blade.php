@@ -74,12 +74,12 @@
                     <i class="fas fa-coins"></i>
                     <span>ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ</span></a>
             </li>
-            <hr class="sidebar-divider d-none d-md-block">
+            <!-- <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item py-1">
                 <a style="padding-top: 0" class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-chart-line"></i>
                     <span>ΣΤΑΤΙΣΤΙΚΑ</span></a>
-            </li>
+            </li> -->
             <hr class="sidebar-divider d-none d-md-block">
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
