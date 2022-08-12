@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->prefix('/admin')->group(function () {
 
-    // Route::view('/', 'backoffice.statistics');
+    Route::view('/', 'backoffice.statistics')->middleware('statistics');;
 
     Route::get('/end-of-day', [EndOfDayController::class, 'index']);
 
