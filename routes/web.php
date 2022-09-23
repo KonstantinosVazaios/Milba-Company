@@ -22,14 +22,22 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->prefix('/admin')->group(function () {
 
-    Route::view('/', 'backoffice.statistics')->middleware('statistics');;
+    // Route::view('/', 'backoffice.statistics')->middleware('statistics');
 
-    Route::get('/end-of-day', [EndOfDayController::class, 'index']);
+    // Route::get('/end-of-day', [EndOfDayController::class, 'index']);
 
-    Route::get('/watersports/create', [WatersportController::class, 'create']);
-    Route::post('/watersports/create', [WatersportController::class, 'store']);
-    Route::get('/watersports/{watersport}', [WatersportController::class, 'show']);
+    // Route::get('/watersports/create', [WatersportController::class, 'create']);
+    // Route::post('/watersports/create', [WatersportController::class, 'store']);
+    // Route::get('/watersports/{watersport}', [WatersportController::class, 'show']);
 
-    Route::get('/orders', [OrderController::class, 'index']);
-    Route::get('/orders/create', [OrderController::class, 'create']);
+    // Route::get('/orders', [OrderController::class, 'index']);
+    // Route::get('/orders/create', [OrderController::class, 'create']);
+
+    Route::view('/orders/new', 'backoffice.new-orders');
+    Route::view('/orders', 'backoffice.orders');
+    Route::view('/customers', 'backoffice.users');
+    Route::view('/categories', 'backoffice.categories');
+    Route::view('/products', 'backoffice.products');
+    Route::view('/', 'backoffice.statistics');
+    Route::view('/end-of-day', 'backoffice.endofday.index');
 }); 

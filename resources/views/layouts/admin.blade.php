@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FALASSARNA WATERSPORTS</title>
+    <title>Milba Backoffice</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin-assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -32,9 +32,9 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <a class="sidebar-brand d-flex" href="/admin">
+            <a style="margin-bottom: 60px" class="sidebar-brand d-flex mt-0" href="/admin">
                 <div class="sidebar-brand-text">
-                    FALASSARNA W.S 
+                    <img width="150" src="/storage/logo.png" alt="">
                 </div>
             </a>
 
@@ -42,15 +42,14 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-swimmer"></i>
-                    <span>WATERSPORTS</span>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Πελάτες</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/watersports/create">Δημιουργία SPORT</a>
-                        @foreach($watersports as $watersport)
-                        <a class="collapse-item" href="/admin/watersports/{{$watersport->id}}">{{$watersport->title}}</a>
-                        @endforeach
+                        <a class="collapse-item" href="#">Δημιουργία Πελάτη</a>
+                        <a class="collapse-item" href="/admin/customers">Όλοι οι Πελάτες</a>
+                        <a class="collapse-item" href="#">Στατιστικά Για Πελάτες</a>
                     </div>
                 </div>
             </li>
@@ -59,20 +58,41 @@
                 <a style="padding-top: 0" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#orders"
                     aria-expanded="true" aria-controls="orders">
                     <i class="fas fa-file-invoice"></i>
-                    <span>ΠΑΡΑΓΓΕΛΙΕΣ</span>
+                    <span>Παραγγελίες</span>
                 </a>
                 <div id="orders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/orders/create">ΔΗΜΙΟΥΡΓΙΑ</a>
-                        <a class="collapse-item" href="/admin/orders">ΟΛΕΣ ΟΙ ΠΑΡΑΓΓΕΛΙΕΣ</a>
+                        <a class="collapse-item" href="#">Δημιουργία</a>
+                        <a class="collapse-item" href="/admin/orders/new">Νέες Παραγγελίες</a>
+                        <a class="collapse-item" href="/admin/orders">Όλες οι Παραγγελίες</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item py-1">
+                <a style="padding-top: 0" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#products"
+                    aria-expanded="true" aria-controls="products">
+                    <i class="fas fa-box"></i>
+                    <span>Αποθήκη</span>
+                </a>
+                <div id="products" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/categories">Κατηγορίες</a>
+                        <a class="collapse-item" href="/admin/products">Προϊόντα</a>
                     </div>
                 </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item py-1">
-                <a style="padding-top: 0" class="nav-link" href="/admin/end-of-day">
+                <a style="padding-top: 0" class="nav-link" href="/admin">
                     <i class="fas fa-coins"></i>
-                    <span>ΚΛΕΙΣΙΜΟ ΗΜΕΡΑΣ</span></a>
+                    <span>Πωλήσεις / Στατιστικά</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item py-1">
+                <a style="padding-top: 0" class="nav-link" href="/admin/end-of-day">
+                    <i class="fas fa-archive"></i>
+                    <span>Κλείσιμο Ημέρας</span></a>
             </li>
             @if(auth()->user()->role == 'Superadmin')
             <hr class="sidebar-divider d-none d-md-block">
@@ -101,16 +121,16 @@
                     <a href="/admin/orders/create" class="btn btn-primary">NEA ΠΑΡΑΓΓΕΛΙΑ</a>
                     <livewire:endofday-toggle /> 
                     <ul class="navbar-nav ml-auto">
-                        <!-- <li class="nav-item dropdown no-arrow mx-1 pt-1">
+                        <li class="nav-item dropdown no-arrow mx-1 pt-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter">5+</span>
                             </a>
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    ΝΕΕΣ ΠΑΡΑΓΓΕΛΙΕΣ
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
@@ -119,35 +139,35 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                        <div class="small text-gray-500">Σεπτέμβριος 23, 2022</div>
+                                        <span class="font-weight-bold">ΩΡΑ: 14:30, ΠΡΟΙΟΝΤΑ:....</span>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
+                                        <div class="small text-gray-500">Σεπτέμβριος 23, 2022</div>
+                                        <span class="font-weight-bold">ΩΡΑ: 16:10, ΠΡΟΙΟΝΤΑ:....</span>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
+                                        <div class="small text-gray-500">Σεπτέμβριος 23, 2022</div>
+                                        <span class="font-weight-bold">ΩΡΑ: 17:43, ΠΡΟΙΟΝΤΑ:....</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Προβολή Όλων</a>
                             </div>
-                        </li> -->
+                        </li>
                         
 
                         <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
@@ -157,7 +177,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user"></i>
-                                <span class="pt-1 ml-2 d-none d-lg-inline text-gray-600 small">ADMIN</span>
+                                <span class="pt-1 ml-2 d-none d-lg-inline text-gray-600 small">Διαχειριστής</span>
                                 <!-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> -->
                             </a>
                             <!-- Dropdown - User Information -->
