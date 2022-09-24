@@ -118,7 +118,7 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a href="/admin/orders/create" class="btn btn-primary">NEA ΠΑΡΑΓΓΕΛΙΑ</a>
+                    <a href="#" class="btn btn-primary">NEA ΠΑΡΑΓΓΕΛΙΑ</a>
                     <livewire:endofday-toggle /> 
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown no-arrow mx-1 pt-1">
